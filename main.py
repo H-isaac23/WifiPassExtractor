@@ -1,16 +1,11 @@
-# This is a sample Python script.
+import subprocess
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+data = subprocess.check_output(['netsh', 'wlan', 'show', 'profiles']).decode('utf-8').split('\n')
+wifis = [line.split(':')[1][1:-1] for line in data if "All User Profile" in line]
+f = open('Passwords.txt', 'w+')
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+for wifi in wifis:
+    password = subprocess.check_output(['netsh', 'wlan', 'show', 'profile', wifi, 'key=clear']).decode('utf-8').split('\n')
+    password = [line.split(':')[1][1:-1] for line in password if "Key Content" in line]
+    f.write('Wifi = {0}, Password = {1}\n'.format(wifi, password))
+    print('Wifi = {0}, Password = {1}'.format(wifi, password))
