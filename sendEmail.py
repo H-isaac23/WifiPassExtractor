@@ -12,10 +12,9 @@ def sendEmail(filename):
     msg['To'] = 'akapa298@gmail.com'
 
     with open(filename, 'r') as f:
-        msg.set_content(f.read())
-        print(f.read())
-        print(filename)
+        content = f.read()
+        msg.set_content(content)
 
-    #with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        #smtp.login(email, password)
-        #smtp.send_message(msg)
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(email, password)
+        smtp.send_message(msg)
