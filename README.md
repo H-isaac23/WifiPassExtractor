@@ -10,4 +10,4 @@ Since this is a small project, I will be mainly working on this project by mysel
 
 ## License
 
-To be licensed
+[MIT](https://choosealicense.com/licenses/mit/)
